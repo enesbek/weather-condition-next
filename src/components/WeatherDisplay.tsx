@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { fetchWeatherData } from "../services/api";
 
 interface WeatherDisplayProps {
-  city: string;
+  lat?: number;
+  lon?: number;
+  city?: string;
 }
 
 interface WeatherData {
@@ -17,9 +19,14 @@ interface WeatherData {
   wind: {
     speed: number;
   };
+  name: string;
 }
 
-export default function WeatherDisplay({ city }: WeatherDisplayProps) {
+export default function WeatherDisplay({
+  lat,
+  lon,
+  city,
+}: WeatherDisplayProps) {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +35,14 @@ export default function WeatherDisplay({ city }: WeatherDisplayProps) {
     async function getWeatherData() {
       try {
         setLoading(true);
-        const data = await fetchWeatherData(city);
+        let data;
+        if (lat && lon) {
+          data = await fetchWeatherData({ lat, lon });
+        } else if (city) {
+          data = await fetchWeatherData({ city });
+        } else {
+          throw new Error("No location provided");
+        }
         setWeatherData(data);
         setError(null);
       } catch (err) {
@@ -41,17 +55,16 @@ export default function WeatherDisplay({ city }: WeatherDisplayProps) {
     }
 
     getWeatherData();
-  }, [city]);
+  }, [lat, lon, city]);
 
-  if (loading)
-    return <p className="text-white-text">Loading weather data...</p>;
+  if (loading) return <p className="text-white">Loading weather data...</p>;
   if (error) return <p className="text-red-500">{error}</p>;
   if (!weatherData) return null;
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto">
       <h3 className="text-2xl font-bold mb-4 text-gray-800 flex items-center justify-between">
-        Current Weather
+        {weatherData.name}
         {/* eslint-disable-next-line */}
         <img
           src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}

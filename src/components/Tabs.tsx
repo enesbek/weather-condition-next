@@ -1,6 +1,11 @@
+export enum TabNames {
+  Cities = "cities",
+  Map = "map",
+}
+
 interface TabsProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab: TabNames;
+  setActiveTab: (tab: TabNames) => void;
 }
 
 export default function Tabs({ activeTab, setActiveTab }: TabsProps) {
@@ -8,17 +13,17 @@ export default function Tabs({ activeTab, setActiveTab }: TabsProps) {
     <div className="flex mb-4">
       <button
         className={`mr-2 px-4 py-2 rounded ${
-          activeTab === "cities" ? "text-primary" : "text-white-text"
+          activeTab === TabNames.Cities ? "text-primary" : "text-white-text"
         }`}
-        onClick={() => setActiveTab("cities")}
+        onClick={() => setActiveTab(TabNames.Cities)}
       >
         Cities
       </button>
       <button
         className={`px-4 py-2 rounded ${
-          activeTab === "map" ? "text-primary" : "text-white-text"
+          activeTab === TabNames.Map ? "text-primary" : "text-white-text"
         }`}
-        onClick={() => setActiveTab("map")}
+        onClick={() => setActiveTab(TabNames.Map)}
       >
         Map
       </button>

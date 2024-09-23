@@ -2,12 +2,13 @@
 import { useState } from "react";
 import ApiKeyInput from "@/components/ApiKeyInput";
 import { useApiKey } from "@/hooks/useApiKey";
-import Tabs from "@/components/Tabs";
+import Tabs, { TabNames } from "@/components/Tabs";
 import CityList from "@/components/CityList";
+import Map from "@/components/Map";
 
 export default function Home() {
   const { apiKey, saveApiKey } = useApiKey();
-  const [activeTab, setActiveTab] = useState("cities");
+  const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Cities);
 
   if (!apiKey) {
     return (
@@ -19,10 +20,10 @@ export default function Home() {
   }
 
   return (
-    <main className="container mx-auto p-4">
+    <main className="container mx-auto p-4 max-w-xl">
       <h1 className="text-2xl font-bold mb-4">Weather App</h1>
       <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-      {activeTab === "cities" ? <CityList /> : <div>Map Component</div>}
+      {activeTab === TabNames.Cities ? <CityList /> : <Map />}
     </main>
   );
 }
