@@ -1,34 +1,31 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ApiKeyInput from "@/components/ApiKeyInput";
+import { useApiKey } from "@/hooks/useApiKey";
+import Tabs from "@/components/Tabs";
 
 export default function Home() {
-  const [apiKey, setApiKey] = useState<string | null>(null);
-
-  useEffect(() => {
-    const storedApiKey = localStorage.getItem("weatherApiKey");
-    if (storedApiKey) {
-      setApiKey(storedApiKey);
-    }
-  }, []);
-
-  const handleApiKeySubmit = (key: string) => {
-    localStorage.setItem("weatherApiKey", key);
-    setApiKey(key);
-  };
+  const { apiKey, saveApiKey } = useApiKey();
+  const [activeTab, setActiveTab] = useState("cities");
 
   if (!apiKey) {
     return (
       <div className="container mx-auto p-4 text-black max-w-xl">
         <h1 className="text-2xl font-bold mb-4 text-white">Weather App</h1>
-        <ApiKeyInput onApiKeySubmit={handleApiKeySubmit} />
+        <ApiKeyInput onApiKeySubmit={saveApiKey} />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-xl">
+    <main className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Weather App</h1>
-    </div>
+      <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
+      {activeTab === "cities" ? (
+        <div>Cities List Component</div>
+      ) : (
+        <div>Map Component</div>
+      )}
+    </main>
   );
 }
