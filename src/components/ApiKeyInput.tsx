@@ -13,7 +13,7 @@ export default function ApiKeyInput({ onApiKeySubmit }: ApiKeyInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 text-black">
       <input
         type="text"
         value={apiKey}

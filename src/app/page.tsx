@@ -19,17 +19,16 @@ export default function Home() {
 
   if (!apiKey) {
     return (
-      <div className="container mx-auto p-4">
-        <h1 className="text-2xl font-bold mb-4">Weather App</h1>
+      <div className="container mx-auto p-4 text-black max-w-xl">
+        <h1 className="text-2xl font-bold mb-4 text-white">Weather App</h1>
         <ApiKeyInput onApiKeySubmit={handleApiKeySubmit} />
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 max-w-xl">
       <h1 className="text-2xl font-bold mb-4">Weather App</h1>
-      {/* Buraya hava durumu bileşenlerini ekleyeceğiz */}
     </div>
   );
 }
