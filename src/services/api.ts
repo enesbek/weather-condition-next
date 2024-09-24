@@ -9,26 +9,36 @@ interface WeatherParams {
 export async function fetchWeatherData({ city, lat, lon }: WeatherParams) {
   const apiKey = sessionStorage.getItem("weatherApiKey");
 
-  if (!apiKey) {
-    throw new Error("API key not found");
+  try {
+    if (!apiKey) {
+      throw new Error("API key not found");
+    }
+
+    let queryParams = "";
+    if (city) {
+      queryParams = `q=${city}`;
+    } else if (lat !== undefined && lon !== undefined) {
+      queryParams = `lat=${lat}&lon=${lon}`;
+    } else {
+      throw new Error("Either city or lat/lon coordinates must be provided");
+    }
+
+    const response = await fetch(
+      `${API_BASE_URL}?${queryParams}&appid=${apiKey}&units=metric`
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        "Failed to fetch weather data. Please check the city name or your connection."
+      );
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : "An unexpected error occurred. Please try again."
+    );
   }
-
-  let queryParams = "";
-  if (city) {
-    queryParams = `q=${city}`;
-  } else if (lat !== undefined && lon !== undefined) {
-    queryParams = `lat=${lat}&lon=${lon}`;
-  } else {
-    throw new Error("Either city or lat/lon coordinates must be provided");
-  }
-
-  const response = await fetch(
-    `${API_BASE_URL}?${queryParams}&appid=${apiKey}&units=metric`
-  );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch weather data");
-  }
-
-  return response.json();
 }

@@ -36,19 +36,25 @@ export default function WeatherDisplay({
     async function getWeatherData() {
       try {
         setLoading(true);
-        let data;
+        let response;
         if (lat && lon) {
-          data = await fetchWeatherData({ lat, lon });
+          response = await fetchWeatherData({ lat, lon });
         } else if (city) {
-          data = await fetchWeatherData({ city });
+          response = await fetchWeatherData({ city });
         } else {
           throw new Error("No location provided");
         }
-        setWeatherData(data);
-        setError(null);
-      } catch (err) {
+
+        if (response.error) {
+          setError(response.error); // Set the error message from the response
+          setWeatherData(null); // Clear weather data
+        } else {
+          setWeatherData(response.data); // Set the weather data
+          setError(null); // Clear any existing error
+        }
+      } catch (error) {
         setError("Failed to fetch weather data");
-        console.error(err);
+        console.error(error);
         setWeatherData(null);
       } finally {
         setLoading(false);
