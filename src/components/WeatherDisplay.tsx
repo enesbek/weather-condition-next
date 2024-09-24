@@ -46,11 +46,11 @@ export default function WeatherDisplay({
         }
 
         if (response.error) {
-          setError(response.error); // Set the error message from the response
-          setWeatherData(null); // Clear weather data
+          setError(response.error);
+          setWeatherData(null);
         } else {
-          setWeatherData(response.data); // Set the weather data
-          setError(null); // Clear any existing error
+          setWeatherData(response);
+          setError(null);
         }
       } catch (error) {
         setError("Failed to fetch weather data");
