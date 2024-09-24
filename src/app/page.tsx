@@ -1,14 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
+import "leaflet/dist/leaflet.css";
+
 import ApiKeyInput from "@/components/ApiKeyInput";
 import { useApiKey } from "@/hooks/useApiKey";
 import Tabs, { TabNames } from "@/components/Tabs";
 import CityList from "@/components/CityList";
-import Map from "@/components/Map";
 
 export default function Home() {
-  const { apiKey, saveApiKey } = useApiKey();
   const [activeTab, setActiveTab] = useState<TabNames>(TabNames.Cities);
+  const { apiKey, saveApiKey } = useApiKey();
+
+  useEffect(() => {
+    console.log("HomePage component mounted");
+  }, []);
+
+  const Map = useMemo(
+    () => dynamic(() => import("@/components/Map"), { ssr: false }),
+    []
+  );
 
   if (!apiKey) {
     return (

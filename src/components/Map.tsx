@@ -1,6 +1,4 @@
-"use client";
 import React, { useMemo, useRef, useState } from "react";
-import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 
 import { MESSAGES } from "@/constants/constants";
@@ -16,6 +14,12 @@ export default function MapSelector() {
     lat: 39.9334,
     lng: 32.8597,
   });
+  const [isMounted, setIsMounted] = useState(false);
+
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const markerRef = useRef(null);
 
   const eventHandlers = useMemo(
@@ -32,27 +36,29 @@ export default function MapSelector() {
   );
 
   return (
-    <>
-      <MapContainer
-        center={[39.9334, 32.8597]}
-        zoom={7}
-        scrollWheelZoom={false}
-        className="max-w-xl mb-4"
-        style={{ height: "50vh" }}
-      >
-        <TileLayer
-          attribution={MESSAGES.MAP_ATTRIBUTION}
-          url={MESSAGES.MAP_URL}
-        />
-        <Marker
-          draggable={true}
-          position={position}
-          eventHandlers={eventHandlers}
-          ref={markerRef}
-          icon={MarkerIcon()}
-        ></Marker>
-      </MapContainer>
-      {position && <WeatherDisplay lat={position.lat} lon={position.lng} />}
-    </>
+    isMounted && (
+      <>
+        <MapContainer
+          center={[39.9334, 32.8597]}
+          zoom={7}
+          scrollWheelZoom={false}
+          className="max-w-xl mb-4"
+          style={{ height: "50vh" }}
+        >
+          <TileLayer
+            attribution={MESSAGES.MAP_ATTRIBUTION}
+            url={MESSAGES.MAP_URL}
+          />
+          <Marker
+            draggable={true}
+            position={position}
+            eventHandlers={eventHandlers}
+            ref={markerRef}
+            icon={MarkerIcon()}
+          ></Marker>
+        </MapContainer>
+        {position && <WeatherDisplay lat={position.lat} lon={position.lng} />}
+      </>
+    )
   );
 }

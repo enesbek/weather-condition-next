@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import WeatherDisplay from "@/components/WeatherDisplay";
 import { TURKISH_CITIES } from "@/constants/constants";
 

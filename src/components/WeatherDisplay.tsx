@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import { fetchWeatherData } from "../services/api";
+
+import { fetchWeatherData } from "@/services/api";
 
 interface WeatherDisplayProps {
   lat?: number;
