@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ERROR_MESSAGES } from "@/constants/errorMessages";
+
+import { ERROR_MESSAGES } from "@/constants/constants";
 
 interface ApiKeyInputProps {
   onApiKeySubmit: (apiKey: string) => void;

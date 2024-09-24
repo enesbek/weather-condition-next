@@ -1,18 +1,7 @@
 import { useState } from "react";
-import WeatherDisplay from "@/components/WeatherDisplay";
 
-const TURKISH_CITIES = [
-  "Istanbul",
-  "Ankara",
-  "Izmir",
-  "Bursa",
-  "Antalya",
-  "Adana",
-  "Konya",
-  "Gaziantep",
-  "Samsun",
-  "Kayseri",
-];
+import WeatherDisplay from "@/components/WeatherDisplay";
+import { TURKISH_CITIES } from "@/constants/constants";
 
 export default function CityList() {
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
