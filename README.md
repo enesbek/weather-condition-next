@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Weather App
 
-## Getting Started
+A simple weather application built with React and Next.js that allows users to fetch and display weather information for various cities. Users can enter their API key and select cities to view current weather data.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Weather Data Fetching**: Fetches real-time weather data from the OpenWeather API.
+- **City Selection**: Users can choose from a list of Turkish cities to display weather information.
+- **Responsive Design**: Works well on both mobile and desktop devices.
+- **Error Handling**: Displays user-friendly error messages for incorrect API keys or connectivity issues.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **React**: For building user interfaces.
+- **Next.js**: For server-side rendering and routing.
+- **TypeScript**: For type safety and better code quality.
+- **Tailwind CSS**: For styling the application.
+- **OpenWeather API**: For fetching weather data.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+### Prerequisites
 
-To learn more about Next.js, take a look at the following resources:
+- Node.js (v14 or later)
+- npm (v5.6 or later) or Yarn
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Steps
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **Clone the repository**:
 
-## Deploy on Vercel
+   ```bash
+   git clone https://github.com/enesbek/weather-condition-next.git
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. **Navigate to the project directory:**:
+
+   ```bash
+   cd weather-condition-next
+
+   ```
+
+3. **Install the dependencies::**:
+
+   ```bash
+   npm install
+
+   or
+
+   yarn add
+
+   ```
+
+4. **Set up your OpenWeather API key::**:
+
+- Sign up at OpenWeather and get your API key.
+- In your project, open the src/services/api.ts file and replace the placeholder for sessionStorage with your actual API key:
+
+  ```typescript
+  sessionStorage.setItem("weatherApiKey", "YOUR_API_KEY");
+  ```
+
+5. **Start the development server:**:
+
+   ```bash
+   npm run dev
+   ```
+
+   or
+
+   ```bash
+   yarn dev
+   ```
+
+6. **Open your browser and navigate to http://localhost:3000 to view the application.:**:
+
+## Usage
+
+1. Enter your OpenWeather API key if prompted.
+
+2. Select a city from the list to fetch and display the current weather information.
+
+3. View detailed weather data, including temperature, humidity, and wind speed.
+
+## Error Handling
+
+- If an invalid API key is entered or there is a connectivity issue, the application will display an error message to the user.
+
+- The application also checks for valid city names and provides feedback if the input is incorrect.
+
+### Contributing
+
+Contributions are welcome! If you have suggestions for improvements or features, please fork the repository and submit a pull request.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
